@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 /**
  * Created by hiroe on 2017/10/07.
  */
@@ -56,12 +59,15 @@ public class RecyclerOuterFragment extends Fragment implements OnRecyclerListene
         super.onActivityCreated(savedInstanceState);
 
         // 適当にデータ作成
+        Realm realm = Realm.getDefaultInstance();
+        final RealmResults<Wear> wears = realm.where(Wear.class).equalTo("category", "outer").findAll();
+        int realmSize = wears.size();
         ArrayList<Integer> outerArray = new ArrayList<>();
-        outerArray.add(R.drawable.brown_top);
-        outerArray.add(R.drawable.white_top);
-        outerArray.add(R.drawable.black_bottom);
-        outerArray.add(R.drawable.black_bottom);
+        for(int i = 0; i < realmSize; i++){
+            outerArray.add(wears.get(i).getId());
 
+        }
+        realm.close();
 
         mAdapterOuter = new RecyclerAdapter(getContext(), outerArray, this);
 

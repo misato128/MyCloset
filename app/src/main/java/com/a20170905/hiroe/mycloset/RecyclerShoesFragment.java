@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 /**
  * Created by hiroe on 2017/10/07.
  */
@@ -56,10 +59,15 @@ public class RecyclerShoesFragment extends Fragment implements OnRecyclerListene
         super.onActivityCreated(savedInstanceState);
 
         // 適当にデータ作成
+        Realm realm = Realm.getDefaultInstance();
+        final RealmResults<Wear> wears = realm.where(Wear.class).equalTo("category", "shoes").findAll();
+        int realmSize = wears.size();
         ArrayList<Integer> shoesArray = new ArrayList<>();
-        shoesArray.add(R.drawable.brown_top);
-        shoesArray.add(R.drawable.white_top);
-        shoesArray.add(R.drawable.black_bottom);
+        for(int i = 0; i < realmSize; i++){
+            shoesArray.add(wears.get(i).getId());
+
+        }
+        realm.close();
 
         mAdapterShoes = new RecyclerAdapter(getContext(), shoesArray, this);
 

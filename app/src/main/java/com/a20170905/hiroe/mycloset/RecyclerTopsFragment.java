@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 /**
  * Created by hiroe on 2017/10/07.
@@ -55,11 +60,23 @@ public class RecyclerTopsFragment extends Fragment implements OnRecyclerListener
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // 適当にデータ作成
+        // データ作成
+        Realm realm = Realm.getDefaultInstance();
+        final RealmResults<Wear> wears = realm.where(Wear.class).equalTo("category", "tops").findAll();
+        int realmSize = wears.size();
+        ArrayList<Integer> topsArray = new ArrayList<>();
+        for(int i = 0; i < realmSize; i++){
+            topsArray.add(wears.get(i).getId());
+
+        }
+        realm.close();
+
+        /*
         ArrayList<Integer> topsArray = new ArrayList<>();
         topsArray.add(R.drawable.brown_top);
         topsArray.add(R.drawable.white_top);
         topsArray.add(R.drawable.black_bottom);
+        */
 
         mAdapterTops = new RecyclerAdapter(getContext(), topsArray, this);
 

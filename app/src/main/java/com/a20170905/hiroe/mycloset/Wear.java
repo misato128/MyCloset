@@ -1,8 +1,5 @@
 package com.a20170905.hiroe.mycloset;
 
-import java.sql.Statement;
-import java.util.Date;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -12,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class Wear extends RealmObject {
     @PrimaryKey
-    private long id;
+    private int id;
     private String imagePath;
     private String season;
     private String color;
@@ -22,7 +19,8 @@ public class Wear extends RealmObject {
     private String category;
 
     public Wear(){}
-    public Wear(String imagePath, String season, String color, String boughtAt, String shopName, int rate, String category) {
+    public Wear(int id, String imagePath, String season, String color, String boughtAt, String shopName, int rate, String category) {
+        this.id = id;
         this.imagePath = imagePath;
         this.season = season;
         this.color = color;
@@ -32,11 +30,11 @@ public class Wear extends RealmObject {
         this.category = category;
     }
 
-    public long getId(){
+    public int getId(){
         return id;
     }
 
-    public void setId(long id){
+    public void setId(int id){
         this.id = id;
     }
 

@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -25,20 +26,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
 
-        (new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent();
-                intent.setClassName("com.a20170905.hiroe.mycloset", "com.a20170905.hiroe.mycloset.DetailActivity");
-                startActivity(intent);
-            }
-        })).start();
-        //Intent intent = new Intent();
-        //intent.setClassName("com.a20170905.hiroe.mycloset", "com.a20170905.hiroe.mycloset.DetailActivity");
-        //startActivity(intent);
+        Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
+        setupRealm();
+        setContentView(R.layout.activity_main);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener(){
@@ -57,7 +48,38 @@ public class MainActivity extends AppCompatActivity {
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        realm.copyToRealmOrUpdate(new Wear("/storage/emulated/0/DCIM/100ANDRO/DSC_0160.JPG", "spring", "red", "2017/10/01", "ユニクロ", 3, "bottoms"));
+                        int ct = 0;
+                        String[] paths = {"/storage/emulated/0/Pictures/1507387564412.jpg", "/storage/emulated/0/Pictures/1507387715452.jpg",
+                                "/storage/emulated/0/Pictures/1507387784316.jpg", "/storage/emulated/0/Pictures/1507387850606.jpg",
+                                "/storage/emulated/0/Pictures/1507387876877.jpg", "/storage/emulated/0/Pictures/1507387994474.jpg",
+                                "/storage/emulated/0/Pictures/1507388073290.jpg", "/storage/emulated/0/Pictures/1507388073290.jpg",
+                                "/storage/emulated/0/Pictures/1507388182634.jpg", "/storage/emulated/0/Pictures/1507388257192.jpg"};
+                        String[] seasons = {"spring", "summer", "autumn", "winter", "spring", "summer", "autumn", "winter", "autumn", "winter"};
+                        String[] colors = {"black", "red", "blue", "green", "white", "black", "red", "blue", "green", "white"};
+                        String[] dates = {"2016/10/01", "2017/05/01", "2015/01/20", "2016/10/01", "2017/05/01", "2015/01/20", "2016/10/01", "2017/05/01", "2015/01/20", "2016/11/23"};
+                        String[] shopNames = {"ユニクロ", "gu", "ユニクロ", "gu", "ユニクロ", "gu", "ユニクロ", "gu", "ユニクロ", "gu"};
+                        int[] rates = {1, 2, 3, 1, 2, 3, 1, 2, 3, 1};
+                        String[] categories = {"bottoms", "tops", "bottoms", "tops", "bottoms", "tops", "bottoms", "tops", "shoes", "outer"};
+                        while(true){
+                            if(realm.where(Wear.class).equalTo("imagePath", paths[ct]).findFirst() == null){
+                                realm.copyToRealm(new Wear(ct+1, paths[ct], seasons[ct], colors[ct], dates[ct], shopNames[ct], rates[ct], categories[ct]));
+                            }
+                            ct++;
+                            if (ct == 10) {
+                                break;
+                            }
+                        }
+                        /*realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507387564412.jpg", "spring", "black", "2016/10/01", "ユニクロ", 3, "bottoms"));
+                        realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507387715452.jpg", "summer", "red", "2016/10/07", "gu", 2, "tops"));
+                        realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507387784316.jpg", "autumn", "green", "2017/10/01", "ユニクロ", 3, "bottoms"));
+                        realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507387850606.jpg", "summer", "black", "2015/11/21", "ユニクロ", 3, "bottoms"));
+                        realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507387876877.jpg", "spring", "black", "2016/04/30", "ユニクロ", 3, "bottoms"));
+                        realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507387994474.jpg", "summer", "black", "2017/05/01", "gu", 1, "bottoms"));
+                        realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507388073290.jpg", "summer", "black", "2016/10/01", "ユニクロ", 2, "bottoms"));
+                        realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507388127689.jpg", "winter", "black", "2015/08/16", "ユニクロ", 3, "bottoms"));
+                        realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507388182634.jpg", "autumn", "black", "2016/07/01", "ユニクロ", 1, "bottoms"));
+                        realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507388257192.jpg", "winter", "black", "2016/10/18", "ユニクロ", 3, "bottoms"));
+                    */
                     }
                 });
             }finally {
@@ -66,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    /* added by Ka, maybe delete it later
+
+    public void onClick(View v) {
+        Intent intent=new Intent();
+        intent.setClassName("com.a20170905.hiroe.mycloset.Main.intent","com.a20170905.hiroe.mycloset.Main.intent.DetailActivity");
+        intent.putExtra("com.a20170905.hiroe.mycloset.Main.intent.testString", "!TEST STRING!");
+
+        startActivity(intent);
+    }*/
 
     private void showGallery() {
 

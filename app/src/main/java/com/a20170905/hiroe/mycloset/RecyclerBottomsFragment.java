@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 /**
  * Created by hiroe on 2017/10/07.
  */
@@ -56,10 +59,15 @@ public class RecyclerBottomsFragment extends Fragment implements OnRecyclerListe
         super.onActivityCreated(savedInstanceState);
 
         // 適当にデータ作成
+        Realm realm = Realm.getDefaultInstance();
+        final RealmResults<Wear> wears = realm.where(Wear.class).equalTo("category", "bottoms").findAll();
+        int realmSize = wears.size();
         ArrayList<Integer> bottomsArray = new ArrayList<>();
-        bottomsArray.add(R.drawable.brown_top);
-        bottomsArray.add(R.drawable.white_top);
-        bottomsArray.add(R.drawable.black_bottom);
+        for(int i = 0; i < realmSize; i++){
+            bottomsArray.add(wears.get(i).getId());
+
+        }
+        realm.close();
         
         mAdapterBottoms = new RecyclerAdapter(getContext(), bottomsArray, this);
 

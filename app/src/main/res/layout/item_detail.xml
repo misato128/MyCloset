@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="購入日時："
+        android:id="@+id/text_view_date"
+        android:textSize="60px"
+        android:padding="20px"
+        android:textColor="@color/colorPrimary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+
+
+        <TextView
+            android:id="@+id/text_view_season"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20px"
+            android:text="シーズン："
+            android:textColor="@color/colorPrimary"
+            android:textSize="60px" />
+
+
+        <ImageView
+            android:id="@+id/fav_view"
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_autumn"
+            android:padding="8px"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="カラー："
+            android:id="@+id/text_view_color"
+            android:textSize="60px"
+            android:padding="20px"
+            android:textColor="@color/colorPrimary"/>
+
+        <ImageView
+            android:id="@+id/color_view"
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_circle_icon_pink"
+            android:padding="12px"/>
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ブランド："
+        android:id="@+id/text_view_brand"
+        android:textSize="60px"
+        android:padding="20px"
+        android:textColor="@color/colorPrimary"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:numStars="3"
+        android:rating="1"
+        android:stepSize="1"
+        android:visibility="visible"
+        android:padding="20px"/>
+
+
+</LinearLayout>

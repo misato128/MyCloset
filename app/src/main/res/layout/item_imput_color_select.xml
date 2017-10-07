@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:weightSum="1">
+
+
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:src="@drawable/ic_circle_icon_white"
+        android:id="@+id/white"
+        android:padding="8px" />
+
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:src="@drawable/ic_circle_icon_yellow"
+        android:id="@+id/yellow"
+        android:padding="8px"/>
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:src="@drawable/ic_circle_icon_orange"
+        android:id="@+id/orange"
+        android:padding="8px"/>
+
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:src="@drawable/ic_circle_icon_red"
+        android:id="@+id/red"
+        android:padding="8px"/>
+
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:src="@drawable/ic_circle_icon_pink"
+        android:id="@+id/pink"
+        android:padding="8px"/>
+
+
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:src="@drawable/ic_circle_icon_brown"
+        android:id="@+id/brown"
+        android:padding="8px"/>
+
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:src="@drawable/ic_circle_icon_black"
+        android:id="@+id/black"
+        android:padding="8px"/>
+
+
+
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:src="@drawable/ic_circle_icon_gray"
+        android:id="@+id/gray"
+        android:padding="8px"/>
+
+
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:src="@drawable/ic_circle_icon_blue"
+        android:id="@+id/blue"
+        android:padding="8px"/>
+
+
+
+    <ImageView
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:src="@drawable/ic_circle_icon_green"
+        android:id="@+id/green"
+        android:padding="8px"/>
+
+</LinearLayout>

@@ -1,8 +1,9 @@
 package com.a20170905.hiroe.mycloset;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
  */
 
 public class RecyclerFragment extends Fragment implements OnRecyclerListener {
-    private Activity mActivity = null;
     private View mView;
     private RecyclerFragmentListener mFragmentListener = null;
 
@@ -29,20 +29,13 @@ public class RecyclerFragment extends Fragment implements OnRecyclerListener {
 
     }
 
-    public interface RecyclerFragmentListener {
-        void onRecyclerEvent();
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (!(activity instanceof RecyclerFragmentListener)) {
-            throw new UnsupportedOperationException(
-                    "Listener is not Implementation.");
-        } else {
-            mFragmentListener = (RecyclerFragmentListener) activity;
-        }
-        mActivity = activity;
+    public interface RecyclerFragmentListener {
+        void onRecyclerEvent();
     }
 
     @Override
@@ -52,7 +45,7 @@ public class RecyclerFragment extends Fragment implements OnRecyclerListener {
         // RecyclerViewの参照を取得
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
         // レイアウトマネージャを設定(ここで縦方向の標準リストであることを指定)
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return mView;
     }
@@ -66,5 +59,8 @@ public class RecyclerFragment extends Fragment implements OnRecyclerListener {
         array.add("A");
         array.add("B");
         array.add("C");
+
+        mAdapter = new RecyclerAdapter(getContext(), array, this);
+        mRecyclerView.setAdapter(mAdapter);
     }
 }

@@ -40,8 +40,18 @@ public class MainActivity extends AppCompatActivity {
         Realm realm = Realm.getDefaultInstance();
         final RealmResults<Wear> wears = realm.allObjects(Wear.class);
         if (wears.size() < 10) {
-            // add data
-
+            try {
+                // add data
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        realm.copyToRealmOrUpdate(new Wear("/storage/emulated/0/DCIM/100ANDRO/DSC_0160.JPG", "spring", "red", "2017/10/01", "ユニクロ", 3, "bottom"));
+                    }
+                });
+            }finally {
+                // getしたらcloseする
+                realm.close();
+            }
         }
     }
 

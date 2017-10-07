@@ -60,6 +60,8 @@ public class RecyclerOuterFragment extends Fragment implements OnRecyclerListene
         outerArray.add(R.drawable.brown_top);
         outerArray.add(R.drawable.white_top);
         outerArray.add(R.drawable.black_bottom);
+        outerArray.add(R.drawable.black_bottom);
+
 
         mAdapterOuter = new RecyclerAdapter(getContext(), outerArray, this);
 

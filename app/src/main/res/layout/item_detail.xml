@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="購入日時："
         android:id="@+id/text_view_date"
-        android:textSize="60px"
+        android:textSize="30dp"
         android:padding="20px"
         android:textColor="@color/colorPrimary"/>
 
@@ -33,7 +33,7 @@
             android:padding="20px"
             android:text="シーズン："
             android:textColor="@color/colorPrimary"
-            android:textSize="60px" />
+            android:textSize="30dp" />
 
 
         <ImageView
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:text="カラー："
             android:id="@+id/text_view_color"
-            android:textSize="60px"
+            android:textSize="30dp"
             android:padding="20px"
             android:textColor="@color/colorPrimary"/>
 
@@ -68,16 +68,30 @@
 
     </LinearLayout>
 
-
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ブランド："
         android:id="@+id/text_view_brand"
-        android:textSize="60px"
+        android:textSize="30dp"
         android:padding="20px"
         android:textColor="@color/colorPrimary"/>
+    <EditText
+        android:id="@+id/brand_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="ブランドを入力"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="30dp"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textColor="#000000"/>
+    </LinearLayout>
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -90,5 +104,14 @@
         android:visibility="visible"
         android:padding="20px"/>
 
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="保存"
+        android:layout_gravity="right"
+        android:textSize="30dp"
+        android:layout_margin="20px"
+        android:background="@color/colorPrimary"/>
 
 </LinearLayout>

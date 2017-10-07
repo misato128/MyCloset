@@ -8,11 +8,22 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.DialogInterface;
+import android.media.ExifInterface;
+import android.support.v7.app.AlertDialog;
+import android.widget.Button;
+import android.widget.EditText;
+
+import java.io.IOException;
 
 
 
 public class DetailActivity extends AppCompatActivity {
     private ImageView colorView;
+    private ImageView seasonView;
+    private ImageView categoryView;
+    private Button SaveButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +38,19 @@ public class DetailActivity extends AppCompatActivity {
         String date = "2017/10/01";
         textView.setText("購入日時：" + date);
 
-        TextView textView3 = (TextView) findViewById(R.id.text_view_brand);
+        //commented this part out cause it will cause nullpointerexception
+
+        /*TextView textView = (TextView) findViewById(R.id.text_view_date);
+        String path = "aaaaaaaaaaaaaaaaaaaaaa";
+        String date = getImageDateInDiary(path);
+        textView.setText("購入日時：" + date);*/
+
+        /*TextView textView3 = (TextView) findViewById(R.id.text_view_brand);
         String brand = "ユニクロ";
+        textView3.setText("ブランド：" + brand);*/
+
+        TextView textView3 = (TextView) findViewById(R.id.text_view_brand);
+        String brand = " ";
         textView3.setText("ブランド：" + brand);
 
         colorView = (ImageView) findViewById(R.id.color_view);
@@ -74,7 +96,51 @@ public class DetailActivity extends AppCompatActivity {
                 colorView.setImageResource(R.drawable.ic_circle_icon_green);
             }
         }
+
+        if (requestCode == 2 && resultCode == RESULT_OK) {
+            if (data.getExtras().getString("SELECT_SEASON").equals("spring")) {
+                seasonView.setImageResource(R.mipmap.ic_spring);
+            } else if (data.getExtras().getString("SELECT_SEASON").equals("summer")) {
+                seasonView.setImageResource(R.mipmap.ic_summer);
+            } else if (data.getExtras().getString("SELECT_SEASON").equals("autumn")) {
+                seasonView.setImageResource(R.mipmap.ic_autumn);
+            } else if (data.getExtras().getString("SELECT_SEASON").equals("winter")) {
+                seasonView.setImageResource(R.mipmap.ic_winter);
+            }
+        }
+
+        if (requestCode == 3 && resultCode == RESULT_OK) {
+            if (data.getExtras().getString("SELECT_CATEGORY").equals("tops")) {
+                categoryView.setImageResource(R.mipmap.ic_tops);
+            } else if (data.getExtras().getString("SELECT_CATEGORY").equals("bottoms")) {
+                categoryView.setImageResource(R.mipmap.ic_bottoms);
+            } else if (data.getExtras().getString("SELECT_CATEGORY").equals("outer")) {
+                categoryView.setImageResource(R.mipmap.ic_outer);
+            } else if (data.getExtras().getString("SELECT_CATEGORY").equals("shoes")) {
+                categoryView.setImageResource(R.mipmap.ic_shoes);
+            }
+        }
     }
 
+    public String getImageDateInDiary(String path) {
+        String result = "";
 
+        try {
+            ExifInterface exifInterface = new ExifInterface(path);
+            result = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+        } catch (IOException e) {
+            e.printStackTrace();
+            result = "日時不明";
+        }
+
+        if (result.length() > 16) {
+            result = result.substring(0, 4) + "/" + result.substring(5, 7)
+                    + "/" + result.substring(8, 10) + " "
+                    + result.substring(11, 13) + ":" + result.substring(14, 16);
+        } else {
+            result = "日時不明";
+        }
+
+        return result;
+    }
 }

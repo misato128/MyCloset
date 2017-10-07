@@ -19,17 +19,17 @@ public class Wear extends RealmObject {
     private String boughtAt;
     private String shopName;
     private int rate;
-    private String wearType;
+    private String category;
 
     public Wear(){}
-    public Wear(String imagePath, String season, String color, String boughtAt, String shopName, int rate, String wearType) {
+    public Wear(String imagePath, String season, String color, String boughtAt, String shopName, int rate, String category) {
         this.imagePath = imagePath;
         this.season = season;
         this.color = color;
         this.boughtAt = boughtAt;
         this.shopName = shopName;
         this.rate = rate;
-        this.wearType = wearType;
+        this.category = category;
     }
 
     public long getId(){
@@ -88,11 +88,11 @@ public class Wear extends RealmObject {
         this.rate = rate;
     }
 
-    public String getWearType(){
-        return wearType;
+    public String getCategory(){
+        return category;
     }
 
-    public void setWearType(String wearType){
-        this.wearType = wearType;
+    public void setCategory(String category){
+        this.category = category;
     }
 }

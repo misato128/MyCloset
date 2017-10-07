@@ -28,6 +28,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this).build());
 
+        (new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent();
+                intent.setClassName("com.a20170905.hiroe.mycloset", "com.a20170905.hiroe.mycloset.DetailActivity");
+                startActivity(intent);
+            }
+        })).start();
+        //Intent intent = new Intent();
+        //intent.setClassName("com.a20170905.hiroe.mycloset", "com.a20170905.hiroe.mycloset.DetailActivity");
+        //startActivity(intent);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -45,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        realm.copyToRealmOrUpdate(new Wear("/storage/emulated/0/DCIM/100ANDRO/DSC_0160.JPG", "spring", "red", "2017/10/01", "ユニクロ", 3, "bottom"));
+                        realm.copyToRealmOrUpdate(new Wear("/storage/emulated/0/DCIM/100ANDRO/DSC_0160.JPG", "spring", "red", "2017/10/01", "ユニクロ", 3, "bottoms"));
                     }
                 });
             }finally {

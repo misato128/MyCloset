@@ -1,6 +1,7 @@
 package com.a20170905.hiroe.mycloset;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +17,11 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private LayoutInflater mInflater;
-    private ArrayList<String> mData;
+    private TypedArray mData;
     private Context mContext;
     private OnRecyclerListener mListener;
 
-    public RecyclerAdapter(Context context, ArrayList<String> data, OnRecyclerListener listener) {
+    public RecyclerAdapter(Context context, TypedArray data, OnRecyclerListener listener) {
         mInflater = LayoutInflater.from(context);
         mContext = context;
         mData = data;

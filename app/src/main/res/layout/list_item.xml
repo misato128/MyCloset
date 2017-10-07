@@ -4,15 +4,15 @@
     android:layout_height="wrap_content"
     android:weightSum="1">
 
-    <TextView
-        android:id="@+id/list_item_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <ImageView
-        android:src="@drawable/brown_top"
+        android:id="@+id/list_item_image"
         android:scaleType="fitCenter"
         android:layout_width="200dp"
         android:layout_height="200dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hoge"/>
 
 </LinearLayout>

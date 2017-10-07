@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Created by hiroe on 2017/10/07.
@@ -82,17 +83,31 @@ public class RecyclerFragment extends Fragment implements OnRecyclerListener {
         super.onActivityCreated(savedInstanceState);
 
         // 適当にデータ作成
-        ArrayList<String> array = new ArrayList<>();
-        array.add("トップス");
-        array.add("B");
-        array.add("C");
+        ArrayList<Integer> topsArray = new ArrayList<>();
+        topsArray.add(R.drawable.brown_top);
+        topsArray.add(R.drawable.white_top);
+        topsArray.add(R.drawable.black_bottom);
+
+        ArrayList<Integer> bottomsArray = new ArrayList<>();
+        topsArray.add(R.drawable.brown_top);
+        topsArray.add(R.drawable.white_top);
+        topsArray.add(R.drawable.black_bottom);
+
+        ArrayList<Integer> outerArray = new ArrayList<>();
+        topsArray.add(R.drawable.brown_top);
+        topsArray.add(R.drawable.white_top);
+        topsArray.add(R.drawable.black_bottom);
+
+        ArrayList<Integer> shoesArray = new ArrayList<>();
+        topsArray.add(R.drawable.brown_top);
+        topsArray.add(R.drawable.white_top);
+        topsArray.add(R.drawable.black_bottom);
 
 
-
-        mAdapterTops = new RecyclerAdapter(getContext(), images, this);
-        mAdapterBottoms = new RecyclerAdapter(getContext(), array, this);
-        mAdapterOuter = new RecyclerAdapter(getContext(), array, this);
-        mAdapterShoes = new RecyclerAdapter(getContext(), array, this);
+        mAdapterTops = new RecyclerAdapter(getContext(), topsArray, this);
+        mAdapterBottoms = new RecyclerAdapter(getContext(), bottomsArray, this);
+        mAdapterOuter = new RecyclerAdapter(getContext(), outerArray, this);
+        mAdapterShoes = new RecyclerAdapter(getContext(), shoesArray, this);
 
 
         mRecyclerViewTops.setAdapter(mAdapterTops);

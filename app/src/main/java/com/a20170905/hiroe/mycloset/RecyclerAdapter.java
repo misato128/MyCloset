@@ -1,11 +1,13 @@
 package com.a20170905.hiroe.mycloset;
 
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,11 +19,11 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private LayoutInflater mInflater;
-    private TypedArray mData;
+    private ArrayList<Integer> mData;
     private Context mContext;
     private OnRecyclerListener mListener;
 
-    public RecyclerAdapter(Context context, TypedArray data, OnRecyclerListener listener) {
+    public RecyclerAdapter(Context context, ArrayList<Integer> data, OnRecyclerListener listener) {
         mInflater = LayoutInflater.from(context);
         mContext = context;
         mData = data;
@@ -38,7 +40,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         // データ表示
         if (mData != null && mData.size() > i && mData.get(i) != null) {
-            viewHolder.textView.setText(mData.get(i));
+            viewHolder.imageView.setImageResource(mData.get(i));
         }
 
         // クリック処理
@@ -63,11 +65,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     // ViewHolder(固有ならインナークラスでOK)
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView;
+        ImageView imageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.list_item_text);
+            imageView = (ImageView) itemView.findViewById(R.id.list_item_image);
         }
     }
 

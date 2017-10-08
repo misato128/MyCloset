@@ -29,7 +29,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detail);
         colorView = (ImageView) findViewById(R.id.color_view);
-        seasonView = (ImageView) findViewById(R.id.fav_view);
+        seasonView = (ImageView) findViewById(R.id.season_view);
         categoryView = (ImageView) findViewById(R.id.category_view);
         colorView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

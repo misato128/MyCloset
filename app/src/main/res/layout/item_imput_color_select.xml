@@ -2,92 +2,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#FCE4EC"
     android:weightSum="1">
-
-
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:src="@drawable/ic_circle_icon_white"
-        android:id="@+id/white"
-        android:padding="8px" />
-
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:src="@drawable/ic_circle_icon_yellow"
-        android:id="@+id/yellow"
-        android:padding="8px"/>
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:src="@drawable/ic_circle_icon_orange"
-        android:id="@+id/orange"
-        android:padding="8px"/>
-
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:src="@drawable/ic_circle_icon_red"
-        android:id="@+id/red"
-        android:padding="8px"/>
-
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:src="@drawable/ic_circle_icon_pink"
-        android:id="@+id/pink"
-        android:padding="8px"/>
-
-
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:src="@drawable/ic_circle_icon_brown"
-        android:id="@+id/brown"
-        android:padding="8px"/>
-
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:src="@drawable/ic_circle_icon_black"
-        android:id="@+id/black"
-        android:padding="8px"/>
-
-
-
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:src="@drawable/ic_circle_icon_gray"
-        android:id="@+id/gray"
-        android:padding="8px"/>
-
-
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:src="@drawable/ic_circle_icon_blue"
-        android:id="@+id/blue"
-        android:padding="8px"/>
-
-
-
-    <ImageView
-        android:layout_width="53dp"
-        android:layout_height="53dp"
-        android:src="@drawable/ic_circle_icon_green"
-        android:id="@+id/green"
-        android:padding="8px"/>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="100dp"
+        android:paddingBottom="30dp">
+        <ImageView
+            android:id="@+id/white"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_margin="10dp"
+            android:padding="8px"
+            android:src="@drawable/ic_circle_icon_white" />
+        <ImageView
+            android:id="@+id/yellow"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_margin="10dp"
+            android:padding="8px"
+            android:src="@drawable/ic_circle_icon_yellow" />
+        <ImageView
+            android:id="@+id/orange"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_margin="10dp"
+            android:padding="8px"
+            android:src="@drawable/ic_circle_icon_orange" />
+        <ImageView
+            android:id="@+id/red"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_margin="10dp"
+            android:padding="8px"
+            android:src="@drawable/ic_circle_icon_red" />
+        <ImageView
+            android:id="@+id/pink"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_margin="10dp"
+            android:padding="8px"
+            android:src="@drawable/ic_circle_icon_pink" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="20dp">
+        <ImageView
+            android:id="@+id/brown"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_margin="10dp"
+            android:padding="8px"
+            android:src="@drawable/ic_circle_icon_brown" />
+        <ImageView
+            android:id="@+id/black"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_margin="10dp"
+            android:padding="8px"
+            android:src="@drawable/ic_circle_icon_black" />
+        <ImageView
+            android:id="@+id/gray"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_margin="10dp"
+            android:padding="8px"
+            android:src="@drawable/ic_circle_icon_gray" />
+        <ImageView
+            android:id="@+id/blue"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_margin="10dp"
+            android:padding="8px"
+            android:src="@drawable/ic_circle_icon_blue" />
+        <ImageView
+            android:id="@+id/green"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_margin="10dp"
+            android:padding="8px"
+            android:src="@drawable/ic_circle_icon_green" />
+    </LinearLayout>
 </LinearLayout>

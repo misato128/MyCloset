@@ -12,10 +12,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 import java.io.IOException;
-/**
- * Created by Misato on 2017/10/07.
- */
+
+import io.realm.Realm;
+
 public class DetailActivity extends AppCompatActivity {
     private ImageView colorView;
     private ImageView seasonView;
@@ -27,8 +29,24 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.item_detail);
         Intent intent = getIntent();
         Uri imageUri = intent.getData();
-        ImageView imageView = (ImageView)findViewById(R.id.image_view);
-        imageView.setImageURI(imageUri);
+        if (imageUri == null){
+            Intent intentForId = getIntent();
+            if(intentForId != null){
+                int id = intent.getIntExtra("com.a20170905.hiroe.mycloset.intent.id", 0);
+                Toast.makeText(this, id, Toast.LENGTH_LONG).show();
+                Realm realm = Realm.getDefaultInstance();
+                final Wear wear = realm.where(Wear.class).equalTo("id", id).findFirst();
+                ImageView imageView = (ImageView)findViewById(R.id.image_view);
+                File file = new File(wear.getImagePath());
+                Uri uri = Uri.fromFile(file);
+                ImageView.setImageURI(uri);
+                realm.close();
+            }
+        }
+        else {
+            ImageView imageView = (ImageView)findViewById(R.id.image_view);
+            imageView.setImageURI(imageUri);
+        }
 
         TextView textView = (TextView) findViewById(R.id.text_view_date);
         String path = "aaaaaaaaaaaaaaaaaaaaaa";

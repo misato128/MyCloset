@@ -34,6 +34,7 @@
             android:src="@drawable/ic_circle_icon_pink"
             android:layout_margin="8dp"/>
     </LinearLayout>
+
     <TextView
         android:id="@+id/text_view_date"
         android:layout_width="wrap_content"

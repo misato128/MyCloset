@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        int ct = 0;
                         String[] paths = {"/storage/emulated/0/Pictures/1507387564412.jpg", "/storage/emulated/0/Pictures/1507387715452.jpg",
                                 "/storage/emulated/0/Pictures/1507387784316.jpg", "/storage/emulated/0/Pictures/1507387850606.jpg",
                                 "/storage/emulated/0/Pictures/1507387876877.jpg", "/storage/emulated/0/Pictures/1507387994474.jpg",
@@ -70,14 +69,11 @@ public class MainActivity extends AppCompatActivity {
                         String[] shopNames = {"ユニクロ", "gu", "ユニクロ", "gu", "ユニクロ", "gu", "ユニクロ", "gu", "ユニクロ", "gu"};
                         int[] rates = {1, 2, 3, 1, 2, 3, 1, 2, 3, 1};
                         String[] categories = {"bottoms", "tops", "bottoms", "tops", "bottoms", "tops", "bottoms", "tops", "shoes", "outer"};
-                        while(true){
-                            if(realm.where(Wear.class).equalTo("imagePath", paths[ct]).findFirst() == null){
-                                realm.copyToRealm(new Wear(ct+1, paths[ct], seasons[ct], colors[ct], dates[ct], shopNames[ct], rates[ct], categories[ct]));
-                            }
-                            ct++;
-                            if (ct == 10) {
-                                break;
-                            }
+                        for (int ct = 0; ct < 10; ct++) {
+                            //最後の要素だけなぜかれるむに追加されない、なおす
+                            //if(realm.where(Wear.class).equalTo("imagePath", paths[ct]).findFirst() == null) {
+                                realm.copyToRealmOrUpdate(new Wear(ct + 1, paths[ct], seasons[ct], colors[ct], dates[ct], shopNames[ct], rates[ct], categories[ct]));
+                            //}
                         }
                         /*realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507387564412.jpg", "spring", "black", "2016/10/01", "ユニクロ", 3, "bottoms"));
                         realm.copyToRealm(new Wear("/storage/emulated/0/Pictures/1507387715452.jpg", "summer", "red", "2016/10/07", "gu", 2, "tops"));

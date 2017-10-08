@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.content.DialogInterface;
 import android.media.ExifInterface;
 import android.support.v7.app.AlertDialog;
@@ -34,7 +33,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.item_detail);
 
         colorView = (ImageView) findViewById(R.id.color_view);
-        seasonView = (ImageView) findViewById(R.id.fav_view);
+        seasonView = (ImageView) findViewById(R.id.season_view);
         categoryView = (ImageView) findViewById(R.id.category_view);
         colorView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -50,19 +49,19 @@ public class DetailActivity extends AppCompatActivity {
         });
         categoryView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectColorActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SelectCategoryActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
+
         Intent intent = getIntent();
         Uri imageUri = intent.getData();
 
         if (imageUri == null){
             int id = intent.getIntExtra("com.a20170905.hiroe.mycloset.intent.id", 0);
-            Toast.makeText(this, ""+id, Toast.LENGTH_LONG).show();
             Realm realm = Realm.getDefaultInstance();
             final Wear wear = realm.where(Wear.class).equalTo("id", id).findFirst();
-            ImageView imageView = (ImageView)findViewById(R.id.image_view);
+            ImageView imageView = (ImageView) findViewById(R.id.image_view);
             imageView.setImageURI(Uri.parse(wear.getImagePath()));
 
             TextView textview = (TextView) findViewById(R.id.text_view_date);
@@ -130,13 +129,13 @@ public class DetailActivity extends AppCompatActivity {
 
     private int seasonStringToInt(String season){
         if (season.equals("spring")) {
-            return R.mipmap.ic_spring;
+            return R.mipmap.spring;
         } else if (season.equals("summer")) {
-            return R.mipmap.ic_summer;
+            return R.mipmap.summer;
         } else if (season.equals("autumn")) {
-            return R.mipmap.ic_autumn;
+            return R.mipmap.autumn;
         } else if (season.equals("winter")) {
-            return R.mipmap.ic_winter;
+            return R.mipmap.winter;
         } else {
             return -1;
         }

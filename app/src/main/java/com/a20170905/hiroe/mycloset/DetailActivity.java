@@ -33,24 +33,26 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.item_detail);
 
         colorView = (ImageView) findViewById(R.id.color_view);
-        seasonView = (ImageView) findViewById(R.id.season_view);
-        categoryView = (ImageView) findViewById(R.id.category_view);
         colorView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectColorActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
-        seasonView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectSeasonActivity.class);
-                startActivityForResult(intent, 1);
+
+        seasonView = (ImageView) findViewById(R.id.season_view);
+        seasonView.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(),SelectSeasonActivity.class);
+                startActivityForResult(intent, 2);
             }
         });
-        categoryView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectCategoryActivity.class);
-                startActivityForResult(intent, 1);
+
+        categoryView = (ImageView) findViewById(R.id.category_view);
+        categoryView.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(),SelectCategoryActivity.class);
+                startActivityForResult(intent,3);
             }
         });
 

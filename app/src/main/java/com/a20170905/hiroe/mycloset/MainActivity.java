@@ -1,6 +1,12 @@
 package com.a20170905.hiroe.mycloset;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.ContentValues;
@@ -33,8 +39,41 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                showGallery();
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                        PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        // ユーザに許諾してもらうために、なんで必要なのかを説明する
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage("ストレージに");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String[] permissions = new String[]{
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                };
+                                ActivityCompat.requestPermissions(MainActivity.this, permissions, 0);
+                            }
+                        });
+                        builder.setNegativeButton("NG", null);
+                        builder.show();
+                        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                                PackageManager.PERMISSION_GRANTED) {
+                            showGallery();
+                        }
+                    } else {
+                        // startActivityForResult()みたいな感じで許諾を要求
+                        String[] permissions = new String[] {
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        };
+                        ActivityCompat.requestPermissions(MainActivity.this, permissions, 0);
+                    }
+                } else {
+                    //  許諾されているので、やりたいことをする
+                    showGallery();
+                }
+
             }
         });
     }

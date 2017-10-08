@@ -61,6 +61,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 mListener.onRecyclerClicked(v, i);
+                Intent intent = new Intent();
+                intent.setClassName(mContext, "com.a20170905.hiroe.mycloset.intent.DetailAvtivity");
+                intent.putExtra("com.a20170905.hiroe.mycloset.intent.id", mData.get(i));
+
+                mContext.startActivity(intent);
             }
         });
 

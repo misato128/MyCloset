@@ -14,8 +14,11 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.File;
 import java.io.IOException;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 public class DetailActivity extends AppCompatActivity {
@@ -31,8 +34,24 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Uri imageUri = intent.getData();
-        ImageView imageView = (ImageView)findViewById(R.id.image_view);
-        imageView.setImageURI(imageUri);
+        if (imageUri == null){
+            Intent intentForId = getIntent();
+            if(intentForId != null){
+                int id = intent.getIntExtra("com.a20170905.hiroe.mycloset.intent.id", 0);
+                Toast.makeText(this, id, Toast.LENGTH_LONG).show();
+                Realm realm = Realm.getDefaultInstance();
+                final Wear wear = realm.where(Wear.class).equalTo("id", id).findFirst();
+                ImageView imageView = (ImageView)findViewById(R.id.image_view);
+                File file = new File(wear.getImagePath());
+                Uri uri = Uri.fromFile(file);
+                ImageView.setImageURI(uri);
+                realm.close();
+            }
+        }
+        else {
+            ImageView imageView = (ImageView)findViewById(R.id.image_view);
+            imageView.setImageURI(imageUri);
+        }
 
         TextView textView = (TextView) findViewById(R.id.text_view_date);
         String date = "2017/10/01";

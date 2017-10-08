@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
 import io.realm.Realm;
 
@@ -27,108 +28,141 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detail);
-        Intent intent = getIntent();
-        Uri imageUri = intent.getData();
-        if (imageUri == null){
-            Intent intentForId = getIntent();
-            if(intentForId != null){
-                int id = intent.getIntExtra("com.a20170905.hiroe.mycloset.intent.id", 0);
-                Toast.makeText(this, id, Toast.LENGTH_LONG).show();
-                Realm realm = Realm.getDefaultInstance();
-                final Wear wear = realm.where(Wear.class).equalTo("id", id).findFirst();
-                ImageView imageView = (ImageView)findViewById(R.id.image_view);
-                File file = new File(wear.getImagePath());
-                Uri uri = Uri.fromFile(file);
-                ImageView.setImageURI(uri);
-                realm.close();
-            }
-        }
-        else {
-            ImageView imageView = (ImageView)findViewById(R.id.image_view);
-            imageView.setImageURI(imageUri);
-        }
-
-        TextView textView = (TextView) findViewById(R.id.text_view_date);
-        String path = "aaaaaaaaaaaaaaaaaaaaaa";
-        String date = getImageDateInDiary(path);
-        textView.setText("購入日時：" + date);
-        TextView textView3 = (TextView) findViewById(R.id.text_view_brand);
-        String brand = " ";
-        textView3.setText("ブランド：" + brand);
         colorView = (ImageView) findViewById(R.id.color_view);
+        seasonView = (ImageView) findViewById(R.id.fav_view);
+        categoryView = (ImageView) findViewById(R.id.category_view);
         colorView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectColorActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
-        seasonView = (ImageView) findViewById(R.id.season_view);
-        seasonView.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(),SelectSeasonActivity.class);
-                startActivityForResult(intent, 2);
+        seasonView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SelectSeasonActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
-        categoryView = (ImageView) findViewById(R.id.category_view);
-        categoryView.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent(getApplicationContext(),SelectCategoryActivity.class);
-                startActivityForResult(intent,3);
+        categoryView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SelectColorActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
-        SaveButton = (Button) findViewById(R.id.save_button);
-        SaveButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-            }
-        });
+        Intent intent = getIntent();
+        Uri imageUri = intent.getData();
+
+        if (imageUri == null){
+            int id = intent.getIntExtra("com.a20170905.hiroe.mycloset.intent.id", 0);
+            Toast.makeText(this, ""+id, Toast.LENGTH_LONG).show();
+            Realm realm = Realm.getDefaultInstance();
+            final Wear wear = realm.where(Wear.class).equalTo("id", id).findFirst();
+            ImageView imageView = (ImageView)findViewById(R.id.image_view);
+            imageView.setImageURI(Uri.parse(wear.getImagePath()));
+
+            TextView textview = (TextView) findViewById(R.id.text_view_date);
+            textview.setText("購入日時：" + wear.getBoughtAt());
+
+            TextView textView3 = (TextView) findViewById(R.id.text_view_brand);
+            textView3.setText("ブランド：" + wear.getShopName());
+
+            colorView.setImageResource(colorStringToInt(wear.getColor()));
+
+            seasonView.setImageResource(seasonStringToInt(wear.getSeason()));
+
+            categoryView.setImageResource(categoryStringToInt(wear.getCategory()));
+
+            realm.close();
+        }
+        else {
+            ImageView imageView = (ImageView)findViewById(R.id.image_view);
+            imageView.setImageURI(imageUri);
+
+            TextView textView = (TextView) findViewById(R.id.text_view_date);
+            String date = "2017/10/01";
+            textView.setText("購入日時：" + date);
+
+            TextView textView3 = (TextView) findViewById(R.id.text_view_brand);
+            String brand = " ";
+            textView3.setText("ブランド：" + brand);
+        }
     }
+
+    private int colorStringToInt(String colorName) {
+        if(colorName.equals("white")) {
+            return R.drawable.ic_circle_icon_white;
+        }
+        else if (colorName.equals("yellow")) {
+            return R.drawable.ic_circle_icon_yellow;
+        }
+        else if (colorName.equals("orange")) {
+            return R.drawable.ic_circle_icon_orange;
+        }
+        else if (colorName.equals("red")) {
+            return R.drawable.ic_circle_icon_red;
+        }
+        else if (colorName.equals("pink")) {
+            return R.drawable.ic_circle_icon_pink;
+        }
+        else if (colorName.equals("brown")) {
+            return R.drawable.ic_circle_icon_brown;
+        }
+        else if (colorName.equals("black")) {
+            return R.drawable.ic_circle_icon_black;
+        }
+        else if (colorName.equals("gray")) {
+            return R.drawable.ic_circle_icon_gray;
+        }
+        else if (colorName.equals("blue")) {
+            return R.drawable.ic_circle_icon_blue;
+        }
+        else if (colorName.equals("green")) {
+            return R.drawable.ic_circle_icon_green;
+        } else {
+            return -1;
+        }
+    }
+
+    private int seasonStringToInt(String season){
+        if (season.equals("spring")) {
+            return R.mipmap.ic_spring;
+        } else if (season.equals("summer")) {
+            return R.mipmap.ic_summer;
+        } else if (season.equals("autumn")) {
+            return R.mipmap.ic_autumn;
+        } else if (season.equals("winter")) {
+            return R.mipmap.ic_winter;
+        } else {
+            return -1;
+        }
+    }
+
+    private int categoryStringToInt(String category){
+        if (category.equals("tops")) {
+            return R.mipmap.ic_tops;
+        } else if (category.equals("bottoms")) {
+            return R.mipmap.ic_bottoms;
+        } else if (category.equals("outer")) {
+            return R.mipmap.ic_outer;
+        } else if (category.equals("shoes")) {
+            return R.mipmap.ic_shoes;
+        } else {
+            return -1;
+        }
+    }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            if (data.getExtras().getString("SELECT_COLOR").equals("white")) {
-                colorView.setImageResource(R.drawable.ic_circle_icon_white);
-            } else if (data.getExtras().getString("SELECT_COLOR").equals("yellow")) {
-                colorView.setImageResource(R.drawable.ic_circle_icon_yellow);
-            } else if (data.getExtras().getString("SELECT_COLOR").equals("orange")) {
-                colorView.setImageResource(R.drawable.ic_circle_icon_orange);
-            } else if (data.getExtras().getString("SELECT_COLOR").equals("red")) {
-                colorView.setImageResource(R.drawable.ic_circle_icon_red);
-            } else if (data.getExtras().getString("SELECT_COLOR").equals("pink")) {
-                colorView.setImageResource(R.drawable.ic_circle_icon_pink);
-            } else if (data.getExtras().getString("SELECT_COLOR").equals("brown")) {
-                colorView.setImageResource(R.drawable.ic_circle_icon_brown);
-            } else if (data.getExtras().getString("SELECT_COLOR").equals("black")) {
-                colorView.setImageResource(R.drawable.ic_circle_icon_black);
-            } else if (data.getExtras().getString("SELECT_COLOR").equals("gray")) {
-                colorView.setImageResource(R.drawable.ic_circle_icon_gray);
-            } else if (data.getExtras().getString("SELECT_COLOR").equals("blue")) {
-                colorView.setImageResource(R.drawable.ic_circle_icon_blue);
-            } else if (data.getExtras().getString("SELECT_COLOR").equals("green")) {
-                colorView.setImageResource(R.drawable.ic_circle_icon_green);
-            }
+            colorView.setImageResource(colorStringToInt(data.getExtras().getString("SELECT_COLOR")));
         }
         if (requestCode == 2 && resultCode == RESULT_OK) {
-            if (data.getExtras().getString("SELECT_SEASON").equals("spring")) {
-                seasonView.setImageResource(R.mipmap.spring);
-            } else if (data.getExtras().getString("SELECT_SEASON").equals("summer")) {
-                seasonView.setImageResource(R.mipmap.summer);
-            } else if (data.getExtras().getString("SELECT_SEASON").equals("autumn")) {
-                seasonView.setImageResource(R.mipmap.autumn);
-            } else if (data.getExtras().getString("SELECT_SEASON").equals("winter")) {
-                seasonView.setImageResource(R.mipmap.winter);
-            }
+            seasonView.setImageResource(seasonStringToInt(data.getExtras().getString("SELECT_SEASON")));
         }
         if (requestCode == 3 && resultCode == RESULT_OK) {
-            if (data.getExtras().getString("SELECT_CATEGORY").equals("tops")) {
-                categoryView.setImageResource(R.mipmap.ic_tops);
-            } else if (data.getExtras().getString("SELECT_CATEGORY").equals("bottoms")) {
-                categoryView.setImageResource(R.mipmap.ic_bottoms);
-            } else if (data.getExtras().getString("SELECT_CATEGORY").equals("outer")) {
-                categoryView.setImageResource(R.mipmap.ic_outer);
-            } else if (data.getExtras().getString("SELECT_CATEGORY").equals("shoes")) {
-                categoryView.setImageResource(R.mipmap.ic_shoes);
-            }
+            categoryView.setImageResource(categoryStringToInt(data.getExtras().getString("SELECT_CATEGORY")));
         }
     }
     public String getImageDateInDiary(String path) {
